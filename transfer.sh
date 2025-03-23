@@ -20,6 +20,9 @@ DSTHOME=/home/sshuser2/public_html
 DB_DUMP_NAME="db_backupdump.sql"
 DB_DUMP_REMOVE=false
 
+# Set the database type (mysql, mariadb, postgresql, etc.)
+DB_TYPE="mysql"  # Change to postgresql if you're using PostgreSQL
+
 ##### CREATE a timestamp
 TIMESTAMP=$(date +"%A, %B %d, %Y %I:%M:%S %p")
 echo $TIMESTAMP
