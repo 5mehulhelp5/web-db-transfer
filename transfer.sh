@@ -59,6 +59,7 @@ fi
 
 # Step 2: Dump the source database
 # Include the external script(dump_database.sh) for database dump
+echo -e  "${YELLOW}#=== Dumping source database...${RESET}"
 source ./dump_database.sh "$SRCHOST" "$SRCSSHPORT" "$SRCUSER" "$SRCDBNAME" "$SRCDBUSER" "$SRCDBPASS" "$SRCHOME" "$DB_DUMP_NAME" "$DB_TYPE"
 
 # Step 3: Transfer database dump to destination/local
