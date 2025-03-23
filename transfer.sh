@@ -58,20 +58,8 @@ else
 fi
 
 # Step 2: Dump the source database
-echo -e  "${YELLOW}#=== Dumping source database...${RESET}"
-
-if [ "$DSTHOST" = "localhost" ] || [ "$DSTHOST" = "127.0.0.1" ]; then
-    if [ "$SRCHOST" = "localhost" ] || [ "$SRCHOST" = "127.0.0.1" ]; then
-        # Local MySQL dump without SSH
-        mysqldump --no-tablespaces -u $SRCDBUSER -p"$SRCDBPASS" $SRCDBNAME > $SRCHOME/${DB_DUMP_NAME}
-    else
-        # Remote MySQL dump with SSH
-        ssh -p $SRCSSHPORT $SRCUSER@$SRCHOST "mysqldump --no-tablespaces -u $SRCDBUSER -p\"$SRCDBPASS\" $SRCDBNAME > $SRCHOME/${DB_DUMP_NAME}"
-    fi
-else
-    # Remote MySQL dump with SSH (from remote to remote)
-    ssh -p $SRCSSHPORT $SRCUSER@$SRCHOST "mysqldump --no-tablespaces -u $SRCDBUSER -p\"$SRCDBPASS\" $SRCDBNAME > $SRCHOME/${DB_DUMP_NAME}"
-fi
+# Include the external script(dump_database.sh) for database dump
+source ./dump_database.sh "$SRCHOST" "$SRCSSHPORT" "$SRCUSER" "$SRCDBNAME" "$SRCDBUSER" "$SRCDBPASS" "$SRCHOME" "$DB_DUMP_NAME" "$DB_TYPE"
 
 # Step 3: Transfer database dump to destination/local
 if [ "$DSTHOST" = "localhost" ] || [ "$DSTHOST" = "127.0.0.1" ]; then
